@@ -7,7 +7,7 @@ import '../../hooks/hooks.dart';
 import '../../steps/steps.dart';
 import '../../steps/when_tap_step_override.dart';
 import '../../support/firebase_world.dart';
-import 'binding_no_delay.dart';
+import '../../../../lib/src/binding/binding_no_delay.dart';
 import 'mock.dart';
 import 'package:example_with_automated_test/app/flavors/main_unit.dart' as app;
 
