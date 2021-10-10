@@ -1,7 +1,7 @@
 # flutter_gherkin_automated
 Generate gherkin automated tests
 
-## Preliminary: intergation tests performance vs. development
+## Preliminary: integration tests performance vs. development
 Original flutter_gherkin BDD test generator uses integration test bindings only.
 It takes seconds for each 'Tap button' and etc. Simple feature takes minutes.
 While such behaviour is appropriate for real world testing it make BDD completely unusable at development stage.
