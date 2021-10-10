@@ -23,6 +23,7 @@ dependencies:
   flutter_gherkin: ^3.0.0-rc.5
   glob: ^2.0.2
   source_gen: ^1.1.1
+  clock: ^1.1.0
 
 
 dev_dependencies:
