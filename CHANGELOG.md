@@ -1,3 +1,6 @@
+## [0.0.1-rc.3] - 10/10/2021
+* cleanup
+
 ## [0.0.1-rc.2] - 10/10/2021
  * automated binding exported
 
