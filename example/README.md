@@ -23,7 +23,7 @@ Two gherkin feature files used to demonstrate BDD test scenarios.
     flutter drive --driver=test_driver/integration_test_driver.dart --target=integration_test/gherkin_suite_test.dart -d web-server
 	
 ## Fast unit and coverage tests
-	flutter test --coverage
+	flutter test -j 4 --coverage
 	lcov -l coverage/lcov.info
 	
 ## Performance

@@ -1,5 +1,4 @@
-import 'package:flutter_gherkin_automated/src/code_generation/annotations/gherkin_full_automated_test_suite_annotation.dart';
-import 'package:flutter_gherkin_automated/src/runners/gherkin_automated_test_runner.dart';
+import 'package:flutter_gherkin_automated/flutter_gherkin_automated.dart';
 import 'package:gherkin/gherkin.dart';
 
 import '../../unit/common/testBase.dart';
