@@ -13,7 +13,7 @@ Also `flutter test` gives me ability to perform coverage analysis.
 ## AutomatedTestWidgetsFlutterBinding
 Here i demonstrate automated bindings generator concept.
 
-I will use for automated test on some pre-production project:
+On some pre-production project i will use for automated test:
 
     time (flutter test --coverage -j 10)
     
