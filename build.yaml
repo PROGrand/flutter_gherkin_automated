@@ -1,0 +1,9 @@
+builders:
+
+  gherkin_automated_test_suite:
+    import: "package:flutter_gherkin_automated/src/code_generation/builders/gherkin_automated_test_suite_builder.dart"
+    builder_factories: ["gherkinAutomatedTestSuiteBuilder"]
+    build_extensions: {".dart": ["gherkin_automated_tests.g.part"]}
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: ["source_gen|combining_builder"]

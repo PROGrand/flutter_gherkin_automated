@@ -1,0 +1,5 @@
+.idea/
+.packages
+*.g.dart
+build/
+pubspec.lock

@@ -1,0 +1,7 @@
+coverage/
+.dart_tool/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+pubspec.lock
+integration_test/reports/

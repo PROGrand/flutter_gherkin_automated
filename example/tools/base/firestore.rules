@@ -1,0 +1,25 @@
+rules_version = '2';
+service cloud.firestore {
+
+  function userIsAuthenticated() {
+    return request.auth != null;
+  }
+
+  function userIsValid(user) {
+    return user.keys().hasAll(['name']) &&
+      user.name is string;
+  }
+
+
+  match /databases/{database}/documents {
+    match /users/{user} {
+      allow write: if (userIsAuthenticated() && userIsValid(request.resource.data));
+    }
+
+    //Default catch all for now
+    match /{document=**} {      
+      allow write: if userIsAuthenticated();
+      allow read: if userIsAuthenticated();
+    }
+  }
+}

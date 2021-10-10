@@ -1,0 +1,20 @@
+rules_version = '2';
+service cloud.firestore {
+
+  function userIsValid(user) {
+    return user.keys().hasAll(['name']) &&
+           user.name is string;
+  }
+
+
+  match /databases/{database}/documents {
+    match /users/{user} {
+      allow write: if userIsValid(request.resource.data);
+    }
+
+    match /{document=**} {
+      allow write: if true;
+      allow read: if true;
+    }
+  }
+}

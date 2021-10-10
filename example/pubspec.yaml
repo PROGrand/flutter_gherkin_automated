@@ -1,0 +1,45 @@
+name: example_with_automated_test
+description: A new Flutter project.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.14.3 <3.0.0'
+  flutter: ">=2.5.2"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flutter_bloc: ^7.3.0
+#  provider: ^6.0.0
+  go_router: ^2.0.0
+#  firebase_core: ^1.6.0
+  firebase_auth: ^3.1.1
+  cloud_firestore: ^2.5.2
+  cloud_functions: ^3.0.4
+  email_validator: ^2.0.1
+  equatable: ^2.0.3
+  recase:
+#  cupertino_icons: ^1.0.2
+#  phone_numbers_parser: ^3.0.0
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+  build_runner: ^2.1.4
+  flutter_gherkin: 3.0.0-rc.5
+  flutter_gherkin_automated:
+    path: ../
+  mocktail: ^0.1.4
+  http: ^0.13.3
+  fake_cloud_firestore: ^1.1.3
+
+flutter:
+
+  uses-material-design: true
