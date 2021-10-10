@@ -4,4 +4,4 @@ build/
 .flutter-plugins
 .flutter-plugins-dependencies
 pubspec.lock
-integration_test/reports/
+integration_test/gherkin/reports/
