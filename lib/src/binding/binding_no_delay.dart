@@ -1,6 +1,6 @@
 import 'package:flutter/semantics.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:clock/src/clock.dart';
+import 'package:clock/clock.dart';
 
 class _FastClock extends Clock {
   int _now = Clock().now().microsecondsSinceEpoch;
