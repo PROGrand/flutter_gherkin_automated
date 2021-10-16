@@ -6,7 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../app_config.dart';
+import '../firebase_injector.dart';
 
 /// {@template counter_observer}
 /// [BlocObserver] for the counter application which

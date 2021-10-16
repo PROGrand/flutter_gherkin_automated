@@ -15,12 +15,14 @@ class UsersRepository implements IUsersRepository {
       : _usersCollection = firestore.collection('${ExampleModel.users}');
 
   Stream<List<User>> users() {
-    return _usersCollection.snapshots().map((snapshot) => snapshot.docs.map((doc) {
-            return User(
-              id: doc.id,
-              name: doc.get(ExampleModel.users.name),
-            );
-          }).toList(growable: false));
+    return _usersCollection
+        .snapshots()
+        .map((snapshot) => snapshot.docs.map((doc) {
+              return User(
+                id: doc.id,
+                name: doc.get(ExampleModel.users.name),
+              );
+            }).toList(growable: false));
   }
 
   @override

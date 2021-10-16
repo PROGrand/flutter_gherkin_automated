@@ -1,10 +1,10 @@
 name: flutter_gherkin_automated
 description: A Gherkin / Cucumber automated bindings generator for Dart and Flutter
-version: 0.0.1-rc.5
+version: 0.0.1-rc.7
 homepage: https://github.com/PROGrand/flutter_gherkin_automated
 
 environment:
-  sdk: '>=2.14.3 <3.0.0'
+  sdk: '>=2.14.2 <3.0.0'
   flutter: ">=2.5.2"
 
 dependencies:
@@ -20,7 +20,7 @@ dependencies:
   build: ^2.1.1
   collection: ^1.15.0
   gherkin: ^2.0.5+1
-  flutter_gherkin: ^3.0.0-rc.5
+  flutter_gherkin: ^3.0.0-rc.2
   glob: ^2.0.2
   source_gen: ^1.1.1
   clock: ^1.1.0

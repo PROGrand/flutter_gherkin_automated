@@ -5,8 +5,8 @@ import '../../unit/common/testBase.dart';
 
 part 'authentication.g.dart';
 
-@GherkinAutomatedTestSuite(featurePaths: ['integration_test/features/authentication.feature'])
+@GherkinAutomatedTestSuite(
+    featurePaths: ['integration_test/features/authentication.feature'])
 void main() {
   executeTestBase(executeTestSuite);
 }
-

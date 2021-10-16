@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 
 import 'user_entity.dart';
 
-
 @immutable
 abstract class UsersEvent extends Equatable {
   const UsersEvent();
@@ -23,7 +22,8 @@ class AddUser extends UsersEvent {
   List<Object> get props => [user, email, password];
 
   @override
-  String toString() => 'AddUser { user: $user, email: $email, password: ${password.hashCode} }';
+  String toString() =>
+      'AddUser { user: $user, email: $email, password: ${password.hashCode} }';
 }
 
 class UsersUpdated extends UsersEvent {

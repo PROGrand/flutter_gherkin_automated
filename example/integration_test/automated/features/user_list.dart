@@ -5,8 +5,8 @@ import '../../unit/common/testBase.dart';
 
 part 'user_list.g.dart';
 
-@GherkinAutomatedTestSuite(featurePaths: ['integration_test/features/user_list.feature'])
+@GherkinAutomatedTestSuite(
+    featurePaths: ['integration_test/features/user_list.feature'])
 void main() {
   executeTestBase(executeTestSuite);
 }
-

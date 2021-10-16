@@ -23,7 +23,7 @@ class AuthRepository implements IAuthRepository {
     AuthResult _result = AuthResult.error;
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
-              email: credentials.email, password: credentials.password);
+          email: credentials.email, password: credentials.password);
       _result = AuthResult.success;
     } on FirebaseAuthException catch (e) {
       printError(

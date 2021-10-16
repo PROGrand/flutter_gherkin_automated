@@ -19,8 +19,7 @@ Future<void> main() {
   driverLog = logDriverMessages;
   // The Gherkin report data send back to this runner by the app after
   // the tests have run will be saved to this directory
-  integration_test_driver.testOutputsDirectory =
-      'integration_test/reports';
+  integration_test_driver.testOutputsDirectory = 'integration_test/reports';
 
   return integration_test_driver.integrationDriver(
     timeout: const Duration(minutes: 90),

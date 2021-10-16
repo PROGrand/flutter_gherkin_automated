@@ -1,19 +1,61 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_functions/cloud_functions.dart';
+import 'package:example_with_automated_test/admin/admin_service.dart';
+import 'package:example_with_automated_test/firebase/firebase_init.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class FlutterAppError extends StatelessWidget {
+import 'app.dart';
+import 'app_error.dart';
+
+enum AppEnvironment {
+  development,
+  production,
+}
+
+class FirebaseInjector {
+  final AppEnvironment environment;
   final String appName;
+  final bool useAuthenticationEmulator;
+  final bool useFirestoreEmulator;
+  final bool useFunctionsEmulator;
+  final FirebaseAuth firebaseAuth;
+  final FirebaseFirestore firestore;
+  final FirebaseFunctions firebaseFunctions;
 
-  const FlutterAppError({required this.appName, Key? key}) : super(key: key);
+  FirebaseInjector({
+    required this.environment,
+    required this.appName,
+    this.useAuthenticationEmulator = true,
+    this.useFirestoreEmulator = true,
+    this.useFunctionsEmulator = true,
+    required this.firebaseAuth,
+    required this.firestore,
+    required this.firebaseFunctions,
+  });
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: appName,
-      home: Center(
-        child: Text(
-          "Something won't wrong when initializing the app. Please contact support.",
-        ),
-      ),
-    );
+  Future run() async {
+    WidgetsFlutterBinding.ensureInitialized();
+
+    try {
+      final adminService = AdminService(firebaseFunctions: firebaseFunctions);
+
+      await FirebaseInit.initialize(
+          useAuthenticationEmulator: useAuthenticationEmulator,
+          useFirestoreEmulator: useFirestoreEmulator,
+          useFunctionsEmulator: useFunctionsEmulator,
+          firebaseAuth: firebaseAuth,
+          firestore: firestore,
+          firebaseFunctions: firebaseFunctions);
+
+      runApp(App(
+        appName: appName,
+        adminService: adminService,
+        firebaseAuth: firebaseAuth,
+        firestore: firestore,
+      ));
+    } catch (e) {
+      runApp(FlutterAppError(appName: appName));
+    }
   }
 }

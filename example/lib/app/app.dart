@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:example_with_automated_test/admin/admin_service_interface.dart';
 import 'package:example_with_automated_test/auth/auth_email_validator.dart';

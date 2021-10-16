@@ -57,17 +57,7 @@ class MockFirebaseFunctions extends Mock implements FirebaseFunctions {
 
   MockFirebaseFunctions(FirebaseAuth firebaseAuth, IUsersRepository repository)
       : _firebaseAuth = firebaseAuth,
-        _repository = repository {
-    // mockResult(
-    //   functionName: "createUser",
-    //   parameters: {
-    //     "email": "user@example.com",
-    //     "password": "password",
-    //     "name": "Test User"
-    //   },
-    //   result: jsonEncode({"uid": "user@example.com"}),
-    // );
-  }
+        _repository = repository {}
 
   String _convertMapToJson(Map<String, dynamic> parameters) {
     return json.encode(parameters);
@@ -143,30 +133,6 @@ class HttpsCallableResultMock<T> extends Mock
   @override
   final T data;
 }
-
-// class MockUsersRepository extends Mock implements IUsersRepository {
-//   Map<String, entity.User> userMap = {};
-//
-//   @override
-//   Future<UserRole> getUserRole(String? userId) {
-//     return Future.value(userMap[userId!]!.role);
-//   }
-//
-//   @override
-//   Future addNewUser(String userId, entity.User user) {
-//     if (userMap.containsKey(userId)) {
-//       throw FirebaseAuthException(code: '**already exists**');
-//     }
-//     userMap[userId] = user;
-//
-//     return Future.value();
-//   }
-//
-//   @override
-//   Stream<List<entity.User>> users() {
-//     return Stream.value(List.from(userMap.values));
-//   }
-// }
 
 class MockUserCredential extends Mock implements UserCredential {
   MockUserCredential(this.email);

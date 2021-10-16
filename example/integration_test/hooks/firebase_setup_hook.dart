@@ -14,7 +14,6 @@ class FirebaseSetupHook extends Hook {
   @override
   Future<void> onBeforeScenario(
       TestConfiguration config, String scenario, Iterable<Tag> tags) {
-
     firebaseManagementService = firebaseManagementServiceBuilder();
 
     return super.onBeforeScenario(config, scenario, tags);
@@ -23,7 +22,6 @@ class FirebaseSetupHook extends Hook {
   @override
   Future<void> onAfterScenarioWorldCreated(
       World world, String scenario, Iterable<Tag> tags) async {
-
     await firebaseManagementService?.clearAllData;
 
     // for (var user in testUsers) {

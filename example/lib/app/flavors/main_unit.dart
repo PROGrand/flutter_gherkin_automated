@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
-import 'package:example_with_automated_test/app/app_config.dart';
+import 'package:example_with_automated_test/app/firebase_injector.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 void mainUnit({

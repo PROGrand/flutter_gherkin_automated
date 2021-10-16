@@ -13,7 +13,10 @@ class AdminService extends IAdminService {
     required FirebaseFunctions firebaseFunctions,
   }) : _firebaseFunctions = firebaseFunctions;
 
-  Future<AdminResult> createUser({required model.User user, required String email, required String password}) async {
+  Future<AdminResult> createUser(
+      {required model.User user,
+      required String email,
+      required String password}) async {
     try {
       final map = {
         'email': email,
@@ -32,5 +35,4 @@ class AdminService extends IAdminService {
       return AdminResultError(e);
     }
   }
-
 }

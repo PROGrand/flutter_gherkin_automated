@@ -44,7 +44,8 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
       await Future.delayed(Duration(milliseconds: 100));
     }
 
-    final result = await _adminService.createUser(user: event.user, email: event.email, password: event.password);
+    final result = await _adminService.createUser(
+        user: event.user, email: event.email, password: event.password);
 
     if (result is AdminResultSuccess) {
       _action.done(result.id);

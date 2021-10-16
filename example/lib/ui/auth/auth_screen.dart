@@ -63,7 +63,8 @@ class _AuthScreenState extends State<AuthScreen> {
                         TextFormField(
                           key: ValueKey("email"),
                           controller: _emailController,
-                          decoration: InputDecoration(labelText: 'Email Address'),
+                          decoration:
+                              InputDecoration(labelText: 'Email Address'),
                           validator: (String? email) =>
                               _validationController.emailIsValid(email)
                                   ? null
