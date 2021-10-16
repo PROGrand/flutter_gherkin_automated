@@ -5,6 +5,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:collection/collection.dart';
 
+import '../../flutter_gherkin_automated.dart';
+
 abstract class GherkinAutomatedTestRunner {
   final TagExpressionEvaluator _tagExpressionEvaluator =
       TagExpressionEvaluator();
@@ -120,7 +122,7 @@ abstract class GherkinAutomatedTestRunner {
   void runScenario(
     String name,
     Iterable<String>? tags,
-    Future<void> Function(TestDependencies dependencies) runTest, {
+    Future<void> Function(AutomatedTestDependencies dependencies) runTest, {
     Future<void> Function()? onBefore,
     Future<void> Function()? onAfter,
   }) {
@@ -212,7 +214,7 @@ abstract class GherkinAutomatedTestRunner {
   }
 
   @protected
-  Future<TestDependencies> createTestDependencies(
+  Future<AutomatedTestDependencies> createTestDependencies(
     TestConfiguration configuration,
     WidgetTester tester,
   ) async {
@@ -229,7 +231,7 @@ abstract class GherkinAutomatedTestRunner {
 
     (world as FlutterWorld).setAppAdapter(WidgetTesterAppDriverAdapter(tester));
 
-    return TestDependencies(
+    return AutomatedTestDependencies(
       world,
       attachmentManager,
     );
@@ -240,7 +242,7 @@ abstract class GherkinAutomatedTestRunner {
     String step,
     Iterable<String> multiLineStrings,
     dynamic table,
-    TestDependencies dependencies,
+    AutomatedTestDependencies dependencies,
   ) async {
     final executable = _executableSteps!.firstWhereOrNull(
       (s) => s.expression.isMatch(step),
@@ -288,7 +290,7 @@ abstract class GherkinAutomatedTestRunner {
   }
 
   @protected
-  void cleanupScenarioRun(TestDependencies dependencies) {
+  void cleanupScenarioRun(AutomatedTestDependencies dependencies) {
     _safeInvokeFuture(
       () async => dependencies.attachmentManager.dispose(),
     );
@@ -373,7 +375,7 @@ abstract class GherkinAutomatedTestRunner {
   Future<void> _onAfterStepRun(
     String step,
     StepResult result,
-    TestDependencies dependencies,
+    AutomatedTestDependencies dependencies,
   ) async {
     await hook.onAfterStep(
       dependencies.world,

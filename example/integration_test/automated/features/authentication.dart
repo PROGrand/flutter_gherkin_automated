@@ -1,4 +1,3 @@
-import 'package:flutter_gherkin/flutter_gherkin.dart';
 import 'package:flutter_gherkin_automated/flutter_gherkin_automated.dart';
 import 'package:gherkin/gherkin.dart';
 

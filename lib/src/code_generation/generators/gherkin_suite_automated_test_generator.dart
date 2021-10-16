@@ -133,7 +133,7 @@ class FeatureFileTestGeneratorVisitor extends FeatureFileVisitor {
   runScenario(
     '{{scenario_name}}',
     {{tags}},
-    (TestDependencies dependencies) async {
+    (AutomatedTestDependencies dependencies) async {
       {{steps}}
     },
     onBefore: {{onBefore}},
