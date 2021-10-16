@@ -39,10 +39,10 @@ void executeTestSuite(
 
   @override
   Future<String> generateForAnnotatedElement(
-    Element element,
-    ConstantReader annotation,
-    BuildStep buildStep,
-  ) async {
+      Element element,
+      ConstantReader annotation,
+      BuildStep buildStep,
+      ) async {
     _languageService.initialise(
       annotation.read('featureDefaultLanguage').literalValue.toString(),
     );
@@ -58,10 +58,10 @@ void executeTestSuite(
         .map((path) => Glob(path.toStringValue()!))
         .map(
           (glob) => glob
-              .listSync()
-              .map((entity) => File(entity.path).readAsStringSync())
-              .toList(),
-        )
+          .listSync()
+          .map((entity) => File(entity.path).readAsStringSync())
+          .toList(),
+    )
         .reduce((value, element) => value..addAll(element));
 
     if (executionOrder == ExecutionOrder.random) {
@@ -85,15 +85,15 @@ void executeTestSuite(
 
     return TEMPLATE
         .replaceAll('{{feature_functions}}',
-            featureExecutionFunctionsBuilder.toString())
+        featureExecutionFunctionsBuilder.toString())
         .replaceAll(
-          '{{features_to_execute}}',
-          List.generate(
-            id,
+      '{{features_to_execute}}',
+      List.generate(
+        id,
             (index) => 'testFeature$index();',
-            growable: false,
-          ).join('\n'),
-        );
+        growable: false,
+      ).join('\n'),
+    );
   }
 }
 
@@ -123,7 +123,7 @@ class FeatureFileTestGeneratorVisitor extends FeatureFileVisitor {
     runFeature(
       '{{feature_name}}:',
       {{tags}},
-      () async {
+      () {
         {{scenarios}}
       },
     );
@@ -136,6 +136,8 @@ class FeatureFileTestGeneratorVisitor extends FeatureFileVisitor {
     (TestDependencies dependencies) async {
       {{steps}}
     },
+    onBefore: {{onBefore}},
+    onAfter: {{onAfter}},
   );
   ''';
   static const String STEP_TEMPLATE = '''
@@ -145,6 +147,12 @@ class FeatureFileTestGeneratorVisitor extends FeatureFileVisitor {
     {{step_table}},
     dependencies,
   );
+  ''';
+  static const String ON_BEFORE_SCENARIO_RUN = '''
+  () async => onBeforeRunFeature('{{scenario_name}}', {{tags}},)
+  ''';
+  static const String ON_AFTER_SCENARIO_RUN = '''
+  () async => onAfterRunFeature('{{scenario_name}}',)
   ''';
 
   final StringBuffer _buffer = StringBuffer();
@@ -199,10 +207,25 @@ class FeatureFileTestGeneratorVisitor extends FeatureFileVisitor {
   }
 
   @override
-  Future<void> visitScenario(String name, Iterable<String> tags) async {
+  Future<void> visitScenario(
+      String name,
+      Iterable<String> tags,
+      bool isFirst,
+      bool isLast,
+      ) async {
     _flushScenario();
     _currentScenarioCode = _replaceVariable(
       SCENARIO_TEMPLATE,
+      'onBefore',
+      isFirst ? ON_BEFORE_SCENARIO_RUN : 'null',
+    );
+    _currentScenarioCode = _replaceVariable(
+      _currentScenarioCode!,
+      'onAfter',
+      isLast ? ON_AFTER_SCENARIO_RUN : 'null',
+    );
+    _currentScenarioCode = _replaceVariable(
+      _currentScenarioCode!,
       'scenario_name',
       _escapeText(name),
     );
@@ -227,7 +250,8 @@ class FeatureFileTestGeneratorVisitor extends FeatureFileVisitor {
     code = _replaceVariable(
       code,
       'step_multi_line_strings',
-      '<String>[${multiLineStrings.map((s) => "'${_escapeText(s)}'").join(',')}]',
+      // '<String>[${multiLineStrings.map((s) => "'${_escapeText(s)}'").join(',')}]',
+      '<String>[${multiLineStrings.map((s) => '"""$s"""').join(',')}]',
     );
     code = _replaceVariable(
       code,

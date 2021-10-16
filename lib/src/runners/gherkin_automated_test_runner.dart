@@ -5,16 +5,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:collection/collection.dart';
 
-class TestDependencies {
-  final World world;
-  final AttachmentManager attachmentManager;
-
-  TestDependencies(
-    this.world,
-    this.attachmentManager,
-  );
-}
-
 abstract class GherkinAutomatedTestRunner {
   final TagExpressionEvaluator _tagExpressionEvaluator =
       TagExpressionEvaluator();

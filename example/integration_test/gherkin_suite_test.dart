@@ -3,6 +3,7 @@ import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_gherkin/flutter_gherkin.dart';
+import 'package:flutter_gherkin_automated/flutter_gherkin_automated.dart';
 import 'package:gherkin/gherkin.dart';
 
 import 'support/firebase_management_service.dart';
@@ -15,7 +16,7 @@ import 'support/firebase_world.dart';
 
 part 'gherkin_suite_test.g.dart';
 
-@GherkinTestSuite()
+@GherkinNoSemanticsTestSuite()
 void main() async {
   await Firebase.initializeApp();
 
