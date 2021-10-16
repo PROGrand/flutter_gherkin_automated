@@ -99,12 +99,12 @@ void executeTestSuite(
 
 class FeatureFileTestGenerator {
   Future<String> generate(
-    int id,
-    String featureFileContents,
-    String path,
-    LanguageService languageService,
-    Reporter reporter,
-  ) async {
+      int id,
+      String featureFileContents,
+      String path,
+      LanguageService languageService,
+      Reporter reporter,
+      ) async {
     final visitor = FeatureFileTestGeneratorVisitor();
 
     return await visitor.generateTests(
@@ -123,7 +123,7 @@ class FeatureFileTestGeneratorVisitor extends FeatureFileVisitor {
     runFeature(
       '{{feature_name}}:',
       {{tags}},
-      () {
+      () async {
         {{scenarios}}
       },
     );
@@ -136,8 +136,6 @@ class FeatureFileTestGeneratorVisitor extends FeatureFileVisitor {
     (TestDependencies dependencies) async {
       {{steps}}
     },
-    onBefore: {{onBefore}},
-    onAfter: {{onAfter}},
   );
   ''';
   static const String STEP_TEMPLATE = '''
@@ -148,12 +146,6 @@ class FeatureFileTestGeneratorVisitor extends FeatureFileVisitor {
     dependencies,
   );
   ''';
-  static const String ON_BEFORE_SCENARIO_RUN = '''
-  () async => onBeforeRunFeature('{{scenario_name}}', {{tags}},)
-  ''';
-  static const String ON_AFTER_SCENARIO_RUN = '''
-  () async => onAfterRunFeature('{{scenario_name}}',)
-  ''';
 
   final StringBuffer _buffer = StringBuffer();
   int? _id;
@@ -163,12 +155,12 @@ class FeatureFileTestGeneratorVisitor extends FeatureFileVisitor {
   final StringBuffer _stepBuffer = StringBuffer();
 
   Future<String> generateTests(
-    int id,
-    String featureFileContents,
-    String path,
-    LanguageService languageService,
-    Reporter reporter,
-  ) async {
+      int id,
+      String featureFileContents,
+      String path,
+      LanguageService languageService,
+      Reporter reporter,
+      ) async {
     _id = id;
     await visit(
       featureFileContents,
@@ -185,10 +177,10 @@ class FeatureFileTestGeneratorVisitor extends FeatureFileVisitor {
 
   @override
   Future<void> visitFeature(
-    String name,
-    String? description,
-    Iterable<String> tags,
-  ) async {
+      String name,
+      String? description,
+      Iterable<String> tags,
+      ) async {
     _currentFeatureCode = _replaceVariable(
       FUNCTION_TEMPLATE,
       'feature_number',
@@ -207,25 +199,10 @@ class FeatureFileTestGeneratorVisitor extends FeatureFileVisitor {
   }
 
   @override
-  Future<void> visitScenario(
-    String name,
-    Iterable<String> tags,
-    bool isFirst,
-    bool isLast,
-  ) async {
+  Future<void> visitScenario(String name, Iterable<String> tags) async {
     _flushScenario();
     _currentScenarioCode = _replaceVariable(
       SCENARIO_TEMPLATE,
-      'onBefore',
-      isFirst ? ON_BEFORE_SCENARIO_RUN : 'null',
-    );
-    _currentScenarioCode = _replaceVariable(
-      _currentScenarioCode!,
-      'onAfter',
-      isLast ? ON_AFTER_SCENARIO_RUN : 'null',
-    );
-    _currentScenarioCode = _replaceVariable(
-      _currentScenarioCode!,
       'scenario_name',
       _escapeText(name),
     );
@@ -238,10 +215,10 @@ class FeatureFileTestGeneratorVisitor extends FeatureFileVisitor {
 
   @override
   Future<void> visitScenarioStep(
-    String name,
-    Iterable<String> multiLineStrings,
-    GherkinTable? table,
-  ) async {
+      String name,
+      Iterable<String> multiLineStrings,
+      GherkinTable? table,
+      ) async {
     var code = _replaceVariable(
       STEP_TEMPLATE,
       'step_name',
@@ -250,8 +227,7 @@ class FeatureFileTestGeneratorVisitor extends FeatureFileVisitor {
     code = _replaceVariable(
       code,
       'step_multi_line_strings',
-      // '<String>[${multiLineStrings.map((s) => "'${_escapeText(s)}'").join(',')}]',
-      '<String>[${multiLineStrings.map((s) => '"""$s"""').join(',')}]',
+      '<String>[${multiLineStrings.map((s) => "'${_escapeText(s)}'").join(',')}]',
     );
     code = _replaceVariable(
       code,
