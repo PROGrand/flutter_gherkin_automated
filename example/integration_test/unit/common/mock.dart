@@ -57,7 +57,7 @@ class MockFirebaseFunctions extends Mock implements FirebaseFunctions {
 
   MockFirebaseFunctions(FirebaseAuth firebaseAuth, IUsersRepository repository)
       : _firebaseAuth = firebaseAuth,
-        _repository = repository {}
+        _repository = repository;
 
   String _convertMapToJson(Map<String, dynamic> parameters) {
     return json.encode(parameters);
