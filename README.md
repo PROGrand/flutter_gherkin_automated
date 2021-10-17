@@ -1,5 +1,5 @@
 # flutter_gherkin_automated
-Improved flutter gherkin [performance](Performance) and [stability](Stability)
+Improved flutter gherkin [performance](#performance) and [stability](#stability)
 
 ## Performance
 
