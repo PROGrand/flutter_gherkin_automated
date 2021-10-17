@@ -67,10 +67,11 @@ I have more than 40X speed improvement on i9:
 
 ## Stability
 
-### Semantics
+### Flutter 2.5.0 Semantics
 In flutter 2.5.0-2.5.2 there is regression.
 Integration tests occasionally terminate with exceptions like "Parent #24 has child #29 but child #29 is attached to #30..." and etc.
 Do not try to search root of problem in your code. Very simple widgets can stop working. It is just regression bug in flutter.
+Flutter 2.6.0 seems to be fixed. Still waiting
 
 ### Solution
 I provide special `@GherkinNoSemanticsTestSuite` annotation for integration testing.
