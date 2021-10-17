@@ -9,7 +9,7 @@ It takes seconds for each 'Tap button' and etc. Simple feature takes minutes.
 While such behaviour is appropriate for real world testing it make BDD completely unusable at development stage.
 
 ### Solution
-Prepare test for each feature in `test/bdd/features/` using `@GherkinAutomatedTestSuite` annotation:
+Prepare test for each feature in `test/bdd/features/` using `@GherkinAutomatedTestSuite` annotation and `AutomatedBindingNoDelay` binding:
 ```dart
 // file: test/bdd/features/some_feature1.dart
 @GherkinAutomatedTestSuite()
