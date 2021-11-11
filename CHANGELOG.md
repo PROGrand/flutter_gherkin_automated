@@ -1,3 +1,6 @@
+## [0.0.2-rc.2] - 16/10/2021
+* gherkin 2.0.7 support
+
 ## [0.0.2-rc.1] - 16/10/2021
 * add noSemantics generator
 
