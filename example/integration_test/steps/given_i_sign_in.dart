@@ -1,5 +1,5 @@
 import 'package:example_with_automated_test/ui/auth/auth_page.dart';
-import 'package:flutter_gherkin/flutter_gherkin.dart';
+import 'package:flutter_gherkin_integration/flutter_gherkin.dart';
 import 'package:gherkin/gherkin.dart';
 
 final givenISignIn = given2<String, String, FlutterWorld>(

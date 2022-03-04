@@ -1,7 +1,8 @@
 import 'dart:io';
 
+import 'package:build/src/builder/build_step.dart';
 import 'package:analyzer/dart/element/element.dart';
-import 'package:build/build.dart';
+import 'package:flutter_gherkin_integration/src/flutter/code_generation/annotations/gherkin_full_test_suite_annotation.dart';
 import 'package:gherkin/gherkin.dart';
 import 'package:glob/glob.dart';
 import 'package:glob/list_local_fs.dart';
@@ -16,7 +17,7 @@ class GherkinSuiteAutomatedTestGenerator
 class _CustomGherkinAutomatedTestRunner extends GherkinAutomatedTestRunner {
   _CustomGherkinAutomatedTestRunner(
     TestConfiguration configuration,
-    void Function(World) appMainFunction,
+    Future<void> Function(World) appMainFunction,
   ) : super(configuration, appMainFunction);
 
   @override
@@ -29,7 +30,7 @@ class _CustomGherkinAutomatedTestRunner extends GherkinAutomatedTestRunner {
 
 void executeTestSuite(
   TestConfiguration configuration,
-  void Function(World) appMainFunction,
+  Future<void> Function(World) appMainFunction,
 ) {
   _CustomGherkinAutomatedTestRunner(configuration, appMainFunction).run();
 }
@@ -70,6 +71,7 @@ void executeTestSuite(
 
     final featureExecutionFunctionsBuilder = StringBuffer();
     final generator = FeatureFileTestGenerator();
+    final featuresToExecute = new StringBuffer();
     var id = 0;
 
     for (var featureFileContent in featureFiles) {
@@ -80,7 +82,11 @@ void executeTestSuite(
         _languageService,
         _reporter,
       );
-      featureExecutionFunctionsBuilder.writeln(code);
+
+      if (code.isNotEmpty) {
+        featuresToExecute.writeln('testFeature${id - 1}();');
+        featureExecutionFunctionsBuilder.writeln(code);
+      }
     }
 
     return TEMPLATE
@@ -88,11 +94,7 @@ void executeTestSuite(
         featureExecutionFunctionsBuilder.toString())
         .replaceAll(
       '{{features_to_execute}}',
-      List.generate(
-        id,
-            (index) => 'testFeature$index();',
-        growable: false,
-      ).join('\n'),
+      featuresToExecute.toString(),
     );
   }
 }
@@ -136,8 +138,8 @@ class FeatureFileTestGeneratorVisitor extends FeatureFileVisitor {
     (AutomatedTestDependencies dependencies) async {
       {{steps}}
     },
-    onBefore: {{onBefore}},
-    onAfter: {{onAfter}},
+    {{onBefore}}
+    {{onAfter}}
   );
   ''';
   static const String STEP_TEMPLATE = '''
@@ -149,10 +151,10 @@ class FeatureFileTestGeneratorVisitor extends FeatureFileVisitor {
   );
   ''';
   static const String ON_BEFORE_SCENARIO_RUN = '''
-  () async => onBeforeRunFeature('{{feature_name}}', {{feature_tags}},)
+  onBefore: () async => onBeforeRunFeature('{{feature_name}}', {{feature_tags}},),
   ''';
   static const String ON_AFTER_SCENARIO_RUN = '''
-  () async => onAfterRunFeature('{{feature_name}}',)
+  onAfter: () async => onAfterRunFeature('{{feature_name}}',),
   ''';
 
   final StringBuffer _buffer = StringBuffer();
@@ -222,12 +224,12 @@ class FeatureFileTestGeneratorVisitor extends FeatureFileVisitor {
     _currentScenarioCode = _replaceVariable(
       SCENARIO_TEMPLATE,
       'onBefore',
-      isFirst ? ON_BEFORE_SCENARIO_RUN : 'null',
+      isFirst ? ON_BEFORE_SCENARIO_RUN : '',
     );
     _currentScenarioCode = _replaceVariable(
       _currentScenarioCode!,
       'onAfter',
-      isLast ? ON_AFTER_SCENARIO_RUN : 'null',
+      isLast ? ON_AFTER_SCENARIO_RUN : '',
     );
     _currentScenarioCode = _replaceVariable(
       _currentScenarioCode!,

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_gherkin/flutter_gherkin.dart';
+import 'package:flutter_gherkin_integration/flutter_gherkin.dart';
 import 'package:flutter_gherkin_automated/flutter_gherkin_automated.dart';
 import 'package:gherkin/gherkin.dart';
 
@@ -16,7 +16,7 @@ import 'support/firebase_world.dart';
 
 part 'gherkin_suite_test.g.dart';
 
-@GherkinNoSemanticsTestSuite()
+@GherkinAutomatedTestSuite()
 void main() async {
   await Firebase.initializeApp();
 
@@ -42,6 +42,7 @@ void main() async {
       ]
       ..tagExpression = "not @ignore"
       ..defaultTimeout = Duration(minutes: 1)
+      ..semanticsEnabled = false
       ..createWorld = (w) async => FirebaseWorld(
           auth: FirebaseAuth.instance,
           firestore: FirebaseFirestore.instance,

@@ -1,4 +1,4 @@
-import 'package:flutter_gherkin/flutter_gherkin.dart';
+import 'package:flutter_gherkin_integration/flutter_gherkin.dart';
 import 'package:gherkin/gherkin.dart';
 import 'package:test/expect.dart';
 

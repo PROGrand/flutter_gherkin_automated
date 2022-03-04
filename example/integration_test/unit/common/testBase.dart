@@ -1,6 +1,6 @@
 import 'package:example_with_automated_test/users/firebase_users_repository.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
-import 'package:flutter_gherkin/flutter_gherkin.dart';
+import 'package:flutter_gherkin_integration/flutter_gherkin.dart';
 import 'package:gherkin/gherkin.dart';
 
 import '../../hooks/hooks.dart';
@@ -13,7 +13,7 @@ import 'package:example_with_automated_test/app/flavors/main_unit.dart' as app;
 
 void executeTestBase(
     void Function(TestConfiguration configuration,
-            void Function(World) appMainFunction)
+            Future<void> Function(World) appMainFunction)
         executeTestSuite) {
   final firebaseHook =
       FirebaseSetupHook(firebaseManagementServiceBuilder: () => null);
@@ -48,7 +48,7 @@ void executeTestBase(
             functions: MockFirebaseFunctions(
                 mockFirebaseAuth, UsersRepository(fakeFirebaseFirestore)));
       },
-    (world) {
+    (world) async {
       if (world is FirebaseWorld) {
         return app.mainUnit(
           firebaseAuth: world.auth,

@@ -1,5 +1,5 @@
 import 'package:example_with_automated_test/ui/shared/cells.dart';
-import 'package:flutter_gherkin/flutter_gherkin.dart';
+import 'package:flutter_gherkin_integration/flutter_gherkin.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gherkin/gherkin.dart';
 import 'package:recase/recase.dart';
