@@ -12,7 +12,7 @@ NC='\033[0m' # No Color
 
 echo "Starting tests..."
 
-2>/dev/null 1>&2 flutter drive --driver=test_driver/integration_test_driver.dart --target=integration_test/gherkin_suite_test.dart -d web-server
+2>/dev/null 1>&2 flutter drive --driver=test_driver/integration_test_driver.dart --target=integration_test/gherkin_suite_test.dart -d chrome
 
 TEST_RESULT=$?
 

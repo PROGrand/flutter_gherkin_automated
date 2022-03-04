@@ -16,7 +16,7 @@ import 'support/firebase_world.dart';
 
 part 'gherkin_suite_test.g.dart';
 
-@GherkinAutomatedTestSuite()
+@GherkinTestSuite()
 void main() async {
   await Firebase.initializeApp();
 

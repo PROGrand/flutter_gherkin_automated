@@ -12,6 +12,7 @@ Two gherkin feature files used to demonstrate BDD test scenarios.
 
 ### Prepare integration test with firebase emulator
     npm install -g firebase-tools
+    npm install (in functions folder)
     (optional) firebase login
     npm install -g chromedriver
 

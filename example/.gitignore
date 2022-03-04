@@ -1,3 +1,4 @@
+*.log
 reports/
 coverage/
 .dart_tool/

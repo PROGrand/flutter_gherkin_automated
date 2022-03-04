@@ -5,16 +5,18 @@
   },
   "emulators": {
     "firestore": {
-      "host": "localhost",
+      "host": "127.0.0.1",
       "port": 8080
     },
     "ui": {
       "enabled": true
     },
     "auth": {
+		"host": "127.0.0.1",
       "port": 9099
     },
     "functions": {
+		"host": "127.0.0.1",
       "port": 5001
     }
   },
