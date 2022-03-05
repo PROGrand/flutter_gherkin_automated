@@ -1,3 +1,6 @@
+## [0.1.0-rc.2] - 04/03/2022
+* pubspec dependency relaxed
+
 ## [0.1.0-rc.1] - 04/03/2022
 * ported to flutter_gherkin_integration
 
